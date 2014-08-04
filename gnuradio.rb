@@ -2,8 +2,6 @@ require "formula"
 
 class Gnuradio < Formula
   homepage "http://gnuradio.org"
-  url "http://jenkins.gnuradio.org/builds/gnuradio-jenkins-GNURadio-master-82-0-g93db96fa-2014-07-21.tar.gz"
-  sha1 "08c4ee3fc30dd3c3ccd097cccd8efff7971e6feb"
   head "https://github.com/gnuradio/gnuradio.git"
   
   option 'with-qt', 'Build with exta GUI features that use QT'
