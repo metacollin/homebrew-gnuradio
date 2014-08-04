@@ -25,9 +25,9 @@ class Gnuradio < Formula
   depends_on 'sdl'
   depends_on 'libusb'
   depends_on 'orc'
-  depends_on 'pyqt' => "with-qt"
-  #depends_on 'pyqwt' => "with-qt"
-  depends_on 'sphinx' => "with-docs"
+  depends_on 'pyqt' if ARGV.include?('--with-qt')
+  depends_on 'pyqwt' if ARGV.include?('--with-qt')
+  depends_on 'sphinx' if ARGV.include?('--with-docs')
   depends_on 'wxmac' 
   depends_on 'wxpython'
   depends_on 'wxwidgets'
@@ -43,10 +43,8 @@ class Gnuradio < Formula
         -DPYTHON_EXECUTABLE=/usr/local/Cellar/python/2.7.8/bin/python
         -DPYTHON_INCLUDE_DIR=/usr/local/Cellar/python/2.7.8/Frameworks/Python.framework/Headers
         -DPYTHON_LIBRARY=/usr/local/Cellar/python/2.7.8/Frameworks/Python.framework/Versions/2.7/Python
-        ]
+        ] + std_cmake_args
         
-        args << std_cmake_args
-
       if build.with? "docs"
         args << "-DSPHINX_EXECUTEABLE=/usr/local/bin/rst2html.py"
       else
@@ -58,11 +56,11 @@ class Gnuradio < Formula
       else
         args << "-DENABLE_GR_QTGUI=OFF"
       end
-    end
       
     
     system "cmake", "..", *args
     system "make"
     system "make install" # if this fails, try separate make/make install steps
+  end
   end
  end
