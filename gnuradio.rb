@@ -38,6 +38,7 @@ class Gnuradio < Formula
     mkdir 'build' do
       args = %W[
         -DCMAKE_PREFIX_PATH=#{prefix}
+        -DPYTHON_LIBRARY='#{%x(python-config --prefix).chomp}/lib/libpython2.7.dylib'
         ] + std_cmake_args
         
       if build.with? "docs"
