@@ -38,9 +38,6 @@ class Gnuradio < Formula
     mkdir 'build' do
       args = %W[
         -DCMAKE_PREFIX_PATH=#{prefix}
-        -DPYTHON_EXECUTABLE=/usr/local/Cellar/python/2.7.8/bin/python
-        -DPYTHON_INCLUDE_DIR=/usr/local/Cellar/python/2.7.8/Frameworks/Python.framework/Headers
-        -DPYTHON_LIBRARY=/usr/local/Cellar/python/2.7.8/Frameworks/Python.framework/Versions/2.7/Python
         ] + std_cmake_args
         
       if build.with? "docs"
