@@ -12,7 +12,7 @@ pip install --upgrade setuptools
 pip install --upgrade pip
 
 pip install numpy -U scipy -U matplotlib -U
-```sh
+```
 
 That's all the prepwork, and if you missed a python dependency, while homebrew cannot install it for you, this tap will notice and inform you what dependencies, if any, you need to install using pip.
 
