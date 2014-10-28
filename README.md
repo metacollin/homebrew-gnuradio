@@ -21,6 +21,10 @@ Anyway, you're ready to
 brew tap metacollin/gnuradio
 brew install --HEAD gnuradio --with-qt --with-docs
 ```
+and optionally
+```sh
+brew install rtl-sdr #Osmocom rtl-sdr support
+```
 
 Omit `--with-qt` and `--with-docs` at your descretion.  This is a very dependency heavy recipe, so if you're starting from scratch, make sure have access to food because you'll probably need a snack before it's done.  I like nutella on toast, personally.
 
