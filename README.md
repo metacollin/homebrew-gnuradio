@@ -1,7 +1,7 @@
 homebrew-gnuradio
 =================
 
-Delicious and foamy --HEAD only tap of the latest development version of gnuradio! Yay! Builds clean on Mac OS X Yosemite 10.10 using Xcode 6.1 command line tools (clang/llvm).  
+Delicious and foamy tap of the latest development version of gnuradio! Yay! Builds clean on Mac OS X Yosemite 10.10 using Xcode 6.1 command line tools (clang/llvm).  
 
 Disable virtualenv if you use it, and:
 
@@ -19,13 +19,17 @@ That's all the prepwork, and if you missed a python dependency, while homebrew c
 Anyway, you're ready to 
 ```sh
 brew tap metacollin/gnuradio
-brew install --HEAD gnuradio --with-qt --with-docs
+brew install gnuradio --with-qt --with-docs
 ```
 and optionally
 ```sh
-brew install --HEAD rtl-sdr #Osmocom rtl-sdr support
+brew install librtlsdr #Osmocom rtl-sdr support
 ```
 
-Omit `--with-qt` and `--with-docs` at your descretion.  This is a very dependency heavy recipe, so if you're starting from scratch, make sure have access to food because you'll probably need a snack before it's done.  I like nutella on toast, personally.
+Omit `--with-qt` and `--with-docs` at your descretion.  
+
+The latest dev build can be attempted using the `--HEAD` argument, but this isn't necessarily guaranteed to work.
+
+This is a very dependency heavy recipe, so if you're starting from scratch, make sure have access to food because you'll probably need a snack before it's done.  I like nutella on toast, personally.
 
 Awwwww yisssss.
