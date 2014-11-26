@@ -20,22 +20,20 @@ class Gnuradio < Formula
   depends_on 'cppunit'
   depends_on 'gsl'
   depends_on 'fftw'
-  depends_on 'swig'
+  depends_on 'swig' => :build
   depends_on 'pygtk'
   depends_on 'sdl'
   depends_on 'libusb'
   depends_on 'orc'
-  depends_on 'pyqt' if ARGV.include?('--with-qt')
-  depends_on 'pyqwt' if ARGV.include?('--with-qt')
-  depends_on 'sphinx' if ARGV.include?('--with-docs')
-  depends_on 'wxmac'
+  depends_on 'pyqt' if build.with? "qt"
+  depends_on 'pyqwt' if build.with? "qt"
+  depends_on 'sphinx' if build.with? "docs"
   depends_on 'wxpython'
-  depends_on 'wxwidgets'
-
+  depends_on 'wxmac'
 
   def install
-    ENV['CMAKE_C_COMPILER'] = '/usr/bin/llvm-gcc'
-    ENV['CMAKE_CXX_COMPILER'] = '/usr/bin/llvm-g++'
+    ENV['CMAKE_C_COMPILER'] = '#{ENV.cc}'
+    ENV['CMAKE_CXX_COMPILER'] = '#{ENV.cxx}'
 
     mkdir 'build' do
       args = %W[
@@ -59,7 +57,7 @@ class Gnuradio < Formula
 
     system "cmake", "..", *args
     system "make"
-    system "make install" # if this fails, try separate make/make install steps
+    system "make install"
   end
   end
  end
