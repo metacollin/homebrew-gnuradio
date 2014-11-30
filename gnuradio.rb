@@ -7,12 +7,7 @@ class Gnuradio < Formula
   sha1 "ccb66c462aff098bcdace60e52aad64439177b48"
 
   option 'with-qt', 'Build with exta GUI features that use QT'
-  option "with-docs", "Build gnuradio documentation"
-
-  resource "docutils" do
-    url "https://pypi.python.org/packages/source/d/docutils/docutils-0.12.tar.gz"
-    sha1 "002450621b33c5690060345b0aac25bc2426d675"
-  end
+  option 'with-docs', 'Build gnuradio documentation using sphinx.'
 
   depends_on "cmake" => :build
   depends_on 'Cheetah' => :python
@@ -40,12 +35,6 @@ class Gnuradio < Formula
     ENV['CMAKE_C_COMPILER'] = '#{ENV.cc}'
     ENV['CMAKE_CXX_COMPILER'] = '#{ENV.cxx}'
 
-    if build.with? "docs"
-      resource("docutils").stage do
-        system "python", "setup.py", "install", "--prefix=#{buildpath}"
-      end
-    end
-
     mkdir 'build' do
       args = %W[
         -DCMAKE_PREFIX_PATH=#{prefix}
@@ -54,7 +43,7 @@ class Gnuradio < Formula
         ] + std_cmake_args
 
       if build.with? "docs"
-        args << "-DSPHINX_EXECUTEABLE=#{buildpath}/bin/rst2html.py"
+        args << "-DSPHINX_EXECUTEABLE=/usr/local/bin/rst2html.py"
       else
         args << "-DENABLE_SPHINX=OFF"
       end
@@ -69,10 +58,6 @@ class Gnuradio < Formula
     system "cmake", "..", *args
     system "make"
     system "make install"
-
-      inreplace "#{prefix}/etc/gnuradio/conf.d/grc.conf" do |s|
-        s.gsub! "#{prefix}/", "#{HOMEBREW_PREFIX}/"
-      end
   end
   end
  end
