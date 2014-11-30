@@ -6,70 +6,36 @@ class Gnuradio < Formula
   url "http://gnuradio.org/releases/gnuradio/gnuradio-3.7.5.1.tar.gz"
   sha1 "ccb66c462aff098bcdace60e52aad64439177b48"
 
-  option 'with-qt', 'Build with exta GUI features that use QT'
-  option 'with-docs', 'Build gnuradio documentation using sphinx.'
-  option "with-brewed-python", "Use the Homebrew version of Python"
+  option "with-qt", "Build with QT widgets in addition to wxWidgets"
+  option "with-docs", "Build gnuradio documentation"
 
-  resource "Cheetah" do
-    url "https://pypi.python.org/packages/source/C/Cheetah/Cheetah-2.4.4.tar.gz"
-    sha1 "c218f5d8bc97b39497680f6be9b7bd093f696e89"
-  end
-
-  resource "lxml" do
-    url "https://pypi.python.org/packages/source/l/lxml/lxml-3.4.1.tar.gz"
-    sha1 "c09f4e8e71fc9d49fb43bf33821da816ce887396"
-  end
-
-  resource "numpy" do
-    url "http://downloads.sourceforge.net/project/numpy/NumPy/1.9.1/numpy-1.9.1.tar.gz"
-    sha1 "a96ddd221b34c08f08ae700a51969ddeb17d40ea"
-  end
-
-  resource "scipy" do
-    url "http://downloads.sourceforge.net/project/scipy/scipy/0.14.0/scipy-0.14.0.tar.gz"
-    sha1 "faf16ddf307eb45ead62a92ffadc5288a710feb8"
-  end
-
-  depends_on :fortran => :build
   depends_on "cmake" => :build
-  depends_on 'matplotlib' => :python
-  depends_on 'boost'
-  depends_on 'cppunit'
-  depends_on 'gsl'
-  depends_on 'fftw'
-  depends_on 'swig' => :build
-  depends_on 'pygtk'
-  depends_on 'sdl'
-  depends_on 'libusb'
-  depends_on 'orc'
-  depends_on 'pyqt' if build.with? "qt"
-  depends_on 'pyqwt' if build.with? "qt"
+  depends_on "matplotlib" => :python
+  depends_on "boost"
+  depends_on "cppunit"
+  depends_on "gsl"
+  depends_on "fftw"
+  depends_on "swig" => :build
+  depends_on "pygtk"
+  depends_on "sdl"
+  depends_on "libusb"
+  depends_on "orc"
+  depends_on "pyqt" if build.with? "qt"
+  depends_on "pyqwt" if build.with? "qt"
   depends_on 'sphinx' if build.with? "docs"
-  depends_on 'wxpython'
-  depends_on 'wxmac'
+  depends_on "wxpython"
+  depends_on "wxmac"
 
   def install
-    ENV['CMAKE_C_COMPILER'] = '#{ENV.cc}'
-    ENV['CMAKE_CXX_COMPILER'] = '#{ENV.cxx}'
+    mkdir "build" do
+      ENV["CMAKE_C_COMPILER"] = "#{ENV.cc}"
+      ENV["CMAKE_CXX_COMPILER"] = "#{ENV.cxx}"
 
-    ENV.prepend_create_path "PYTHONPATH", libexec/"lib/python2.7/site-packages"
-    python_args = ["install", "--prefix=#{libexec}"]
-    %w[Cheetah lxml].each do |r|
-      resource(r).stage { system "python", "setup.py", *python_args }
-    end
-    python_fortran_args = ["build", "--fcompiler=gnu95", *python_args]
-    %w[numpy scipy].each do |r|
-      resource(r).stage { system "python", "setup.py", *python_fortran_args }
-    end
-
-    mkdir 'build' do
       args = %W[
         -DCMAKE_PREFIX_PATH=#{prefix}
         -DENABLE_DOXYGEN=Off
-      ]
-      if build.with? "brewed-python"
-        args << "-DPYTHON_LIBRARY='#{%x(python-config --prefix).chomp}/lib/libpython2.7.dylib'"
-      end
+        -DPYTHON_LIBRARY='#{%x(python-config --prefix).chomp}/lib/libpython2.7.dylib'
+        ] + std_cmake_args
 
       if build.with? "docs"
         args << "-DSPHINX_EXECUTEABLE=/usr/local/bin/rst2html.py"
@@ -83,10 +49,9 @@ class Gnuradio < Formula
         args << "-DENABLE_GR_QTGUI=OFF"
       end
 
-
-    system "cmake", "..", *args, *std_cmake_args
-    system "make"
-    system "make install"
+      system "cmake", "..", *args
+      system "make"
+      system "make install"
+    end
   end
-  end
- end
+end
