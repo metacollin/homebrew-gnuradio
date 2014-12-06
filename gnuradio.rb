@@ -49,7 +49,9 @@ class Gnuradio < Formula
   depends_on "orc"
   depends_on "pyqt" if build.with? "qt"
   depends_on "pyqwt" if build.with? "qt"
-  depends_on 'sphinx' if build.with? "docs"
+  depends_on "sphinx" if build.with? "docs"
+  depends_on "doxygen" => :build if build.with? "docs"
+  depends_on "graphviz" => :build if build.with? "docs"
   depends_on "wxpython"
   depends_on "wxmac"
 
@@ -74,27 +76,13 @@ class Gnuradio < Formula
       ENV["CMAKE_C_COMPILER"] = "#{ENV.cc}"
       ENV["CMAKE_CXX_COMPILER"] = "#{ENV.cxx}"
 
-      args = %W[
-        -DCMAKE_PREFIX_PATH=#{prefix}
-        -DENABLE_DOXYGEN=Off
-      ]
-      if build.with? "brewed-python"
-        args << "-DPYTHON_LIBRARY='#{%x(python-config --prefix).chomp}/lib/libpython2.7.dylib'"
-      end
+      args = std_cmake_args
+      args << "-DPYTHON_LIBRARY='#{%x(python-config --prefix).chomp}/lib/libpython2.7.dylib'" if build.with? "brewed-python"
+      args << "-DSPHINX_EXECUTABLE=#{buildpath}/bin/rst2html.py" if build.with? "docs"
+      args << "-DENABLE_DOXYGEN=ON" if build.with? "docs"
+      args << "-DENABLE_GR_QTGUI=ON" if build.with? "qt"
 
-      if build.with? "docs"
-        args << "-DSPHINX_EXECUTEABLE=#{buildpath}/bin/rst2html.py"
-      else
-        args << "-DENABLE_SPHINX=OFF"
-      end
-
-      if build.with? "qt"
-        args << "-DENABLE_GR_QTGUI=ON"
-      else
-        args << "-DENABLE_GR_QTGUI=OFF"
-      end
-
-      system "cmake", "..", *args, *std_cmake_args
+      system "cmake", "..", *args
       system "make"
       system "make install"
 
