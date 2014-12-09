@@ -46,6 +46,7 @@ class Gnuradio < Formula
   depends_on "pygtk"
   depends_on "sdl"
   depends_on "libusb"
+  depends_on "log4cpp"
   depends_on "orc"
   depends_on "pyqt" if build.with? "qt"
   depends_on "pyqwt" if build.with? "qt"
