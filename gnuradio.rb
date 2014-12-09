@@ -55,18 +55,17 @@ class Gnuradio < Formula
 
   def install
     ENV.prepend_create_path "PYTHONPATH", libexec/"lib/python2.7/site-packages"
-    python_args = ["install", "--prefix=#{libexec}"]
     %w[Cheetah lxml].each do |r|
-      resource(r).stage { system "python", "setup.py", *python_args }
+      resource(r).stage { Language::Python.setup_install "python", libexec }
     end
-    python_fortran_args = ["build", "--fcompiler=gnu95", *python_args]
     %w[numpy scipy].each do |r|
-      resource(r).stage { system "python", "setup.py", *python_fortran_args }
+      resource(r).stage { Language::Python.setup_install "python", libexec,
+                                                         "--fcompiler=gnu95"}
     end
 
     if build.with? "docs"
       resource("docutils").stage do
-        system "python", "setup.py", "install", "--prefix=#{buildpath}"
+        Language::Python.setup_install "python", "#{buildpath}"
       end
     end
 
@@ -98,6 +97,7 @@ class Gnuradio < Formula
       system "make"
       system "make install"
 
+      bin.env_script_all_files(prefix, :PYTHONPATH => ENV["PYTHONPATH"])
       inreplace "#{prefix}/etc/gnuradio/conf.d/grc.conf" do |s|
         s.gsub! "#{prefix}/", "#{HOMEBREW_PREFIX}/"
       end
