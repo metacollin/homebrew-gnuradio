@@ -37,6 +37,7 @@ class Gnuradio < Formula
 
   depends_on :fortran => :build
   depends_on "cmake" => :build
+  depends_on "docbook"
   depends_on "matplotlib" => :python
   depends_on "boost"
   depends_on "cppunit"
