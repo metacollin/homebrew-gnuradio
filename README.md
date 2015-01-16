@@ -1,5 +1,6 @@
 homebrew-gnuradio
 =================
+**Temporarily unmaintained, I have been very busy, but I am working to resolve issues and return this formula to working status presently.  My apologies.**
 
 Delicious and foamy tap of the latest development version of gnuradio! Yay! Builds clean on Mac OS X Yosemite 10.10 using Xcode 6.1 command line tools (clang/llvm).
 
