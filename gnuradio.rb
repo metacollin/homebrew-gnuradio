@@ -8,7 +8,6 @@ class Gnuradio < Formula
 
   option "with-qt", "Build with QT widgets in addition to wxWidgets"
   option "with-docs", "Build gnuradio documentation"
-  option "with-brewed-python", "Use the Homebrew version of Python"
 
   resource "docutils" do
     url "https://pypi.python.org/packages/source/d/docutils/docutils-0.12.tar.gz"
@@ -74,13 +73,10 @@ class Gnuradio < Formula
       ENV["CMAKE_C_COMPILER"] = "#{ENV.cc}"
       ENV["CMAKE_CXX_COMPILER"] = "#{ENV.cxx}"
 
+      py_prefix = `python-config --prefix`.chomp
       args = %W[
-        -DCMAKE_PREFIX_PATH=#{prefix}
-        -DENABLE_DOXYGEN=Off
-      ]
-      if build.with? "brewed-python"
-        args << "-DPYTHON_LIBRARY='#{%x(python-config --prefix).chomp}/lib/libpython2.7.dylib'"
-      end
+          -DPYTHON_LIBRARY='#{py_prefix}/lib/libpython2.7.dylib'
+      ] + std_cmake_args
 
       if build.with? "docs"
         args << "-DSPHINX_EXECUTEABLE=#{buildpath}/bin/rst2html.py"
