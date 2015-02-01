@@ -1,36 +1,20 @@
 homebrew-gnuradio
 =================
-**Temporarily unmaintained, I have been very busy, but I am working to resolve issues and return this formula to working status presently.  My apologies.**
+**Now maintained and fixed as of 2/1/15. Sorry about the haitus.**
 
 Delicious and foamy tap of the latest development version of gnuradio! Yay! Builds clean on Mac OS X Yosemite 10.10 using Xcode 6.1 command line tools (clang/llvm).
 
-Disable virtualenv if you use it, and:
-
-```sh
-brew install python
-
-pip install --upgrade setuptools
-pip install --upgrade pip
-
-pip install matplotlib -U
-```
-
-That's all the prepwork, and if you missed a python dependency, while homebrew cannot install it for you, this tap will notice and inform you what dependencies, if any, you need to install using pip.
-
-Anyway, you're ready to
+Simply run: 
 ```sh
 brew tap metacollin/gnuradio
-brew install gnuradio --with-qt --with-docs
+brew install gnuradio
 ```
-and optionally
+or, if you prefer to use brewed python instead of the system's python:
 ```sh
-brew install librtlsdr #Osmocom rtl-sdr support
+brew install gnuradio --with-brewed-python
 ```
 
-Omit `--with-qt` and `--with-docs` at your descretion.
+Other available flags to be used at your discretion are `--without-qt` and `--without-docs`. **Note:** Disabling QT will prevent the GUI companion from being built.
 
-The latest dev build can be attempted using the `--HEAD` argument, but this isn't necessarily guaranteed to work.
-
-This is a very dependency heavy recipe, so if you're starting from scratch, make sure have access to food because you'll probably need a snack before it's done.  I like nutella on toast, personally.
-
-Awwwww yisssss.
+The latest dev build can be attempted using the `--HEAD` argument, but this isn't necessarily guaranteed to 
+work.
