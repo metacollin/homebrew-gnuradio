@@ -45,7 +45,7 @@ class Gnuradio < Formula
   depends_on :fortran => :build
   depends_on "cmake" => :build
   if build.with? "brewed-python"
-    deponds_on "matplotlib" => :python
+    depends_on "matplotlib" => :python
   end
   depends_on "boost"
   depends_on "cppunit"
