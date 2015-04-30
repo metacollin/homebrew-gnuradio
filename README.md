@@ -1,9 +1,9 @@
 homebrew-gnuradio
 =================
-Delicious and foamy tap of the latest development version of gnuradio! Yay! 
+Delicious and foamy tap of the latest ~~development~~ stable version of gnuradio! Yay! 
 
 This will *not* automatically handle gnuradio's python dependencies, in accordance with homebrew's python 
-policy. Typically, this can be done using pip:
+policy. Typically, you can install the python dependencies required by gnuradio by running:
 
 ```sh
 pip install Cheetah lxml matplotlib numpy scipy docutils sphinx
