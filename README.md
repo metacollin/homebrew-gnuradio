@@ -59,7 +59,7 @@ run:
 ```ssh
 brew rm $(brew deps gnuradio)
 brew rm gnuradio
-brew install gnuradio --build-from-source  # Important! Rebuilds dependencies against OS X's python.
+brew install gnuradio --build-from-source  # Important! Rebuilds deps against OS X's python.
 ```
 
 Again, you may need to run pip as needed, but its ok if the formula never asks either.  The downside to this is 
