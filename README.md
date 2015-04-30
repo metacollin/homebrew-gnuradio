@@ -18,8 +18,9 @@ brew install gnuradio
 But don't worry, if you weren't able to use pip or are missing a python dependency, homebrew will see which 
 python packages are missing (if any) and tell you how to install them after you try to `brew install gnuradio`.
 
-Other available flags to be used at your discretion are `--without-qt` and `--without-docs`. **Note:** Disabling 
-QT will prevent the GUI companion from being built.
+Other available flags to be used at your discretion are `--without-qt` and `--without-docs`. 
+
+**Note:** Disabling QT will prevent the GUI companion from being built.
 
 The latest dev build can be attempted using the `--HEAD` argument, but this isn't necessarily guaranteed to 
 work.
@@ -39,7 +40,7 @@ binary.
 The only fool-proof way to ensure this is by reinstalling all of the gnuradio dependencies:
 
 ```ssh
-brew rm $(brew deps gnuradio)
+brew rm $(brew deps gnuradio) # May need to add --force
 brew rm gnuradio
 brew install gnuradio
 ```
@@ -58,7 +59,7 @@ run:
 ```ssh
 brew rm $(brew deps gnuradio)
 brew rm gnuradio
-brew install gnuradio --build-from-source  # Important! Rebuilds all dependencies against OS X's python!
+brew install gnuradio --build-from-source  # Important! Rebuilds dependencies against OS X's python.
 ```
 
 Again, you may need to run pip as needed, but its ok if the formula never asks either.  The downside to this is 
