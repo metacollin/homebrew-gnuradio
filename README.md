@@ -18,11 +18,6 @@ brew install gnuradio
 But don't worry, if you weren't able to use pip or are missing a python dependency, homebrew will see which 
 python packages are missing (if any) and tell you how to install them after you try to `brew install gnuradio`.
 
-There is an alternative however.  One can use the `--with-python-deps` flag and the formula will handle all 
-python dependencies automatically for you, and will build them specific for gnuradio, leaving your system wide 
-python setup untouched.  The downside to this is those python libaries will *not* be available systemwide, which 
-may cause issues if you are developing your own blocks etc.
-
 Other available flags to be used at your discretion are `--without-qt` and `--without-docs`. **Note:** Disabling 
 QT will prevent the GUI companion from being built.
 
