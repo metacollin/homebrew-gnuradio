@@ -46,10 +46,7 @@ brew install gnuradio
 ```
 
 To make matters even more complicated, if you hadn't been using homebrew's python before, you might have 
-installed the python dependencies with pip under OS X's python, and haven't been installed for homebrew's 
-python.  The formula may complain about missing python dependencies, please rerun the commands it asks, now that 
-it will run homebrew python's pip.  If it doesn't find any issues, that is OK too, again, it may or may not 
-happen depending on your system.
+installed the python dependencies using OSX's python, and it keeps its python packages in a different location than homebrew's python. As a result, the formula may complain about missing python dependencies, and you simply need to run pip again and install them. 
 
 
 Finally, you might be wondering, "What if i don't WANT to use homebrew's python? I want one python on my system 
@@ -62,6 +59,11 @@ brew rm gnuradio
 brew install gnuradio --build-from-source  # Important! Rebuilds deps against OS X's python.
 ```
 
-Again, you may need to run pip as needed, but its ok if the formula never asks either.  The downside to this is 
-that you won't be using bottles, so build times will be significant, and could potentially break other formula 
-that were built against homebrew's python and they will need to be rebuilt from source to fix.  
+Again, you may need to run pip as needed, but pip is not installed by default when using OSX's python.  To install dependencies if you opt not to use homebrew's python, the proedure is as follows:
+
+```ssh
+sudo easy_install pip
+sudo pip install Cheetah lxml matplotlib numpy scipy docutils sphinx
+```
+
+Enjoy! I'll be adding additional build options soon, keep an eye out.
