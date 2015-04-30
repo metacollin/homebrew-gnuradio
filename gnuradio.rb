@@ -46,11 +46,10 @@ class Gnuradio < Formula
         -DCMAKE_C_COMPILER=#{ENV.cc}
         -DCMAKE_CXX_COMPILER=#{ENV.cxx}
       ]
-
+      # Find the right python, system or homebrew.
       args << "-DPYTHON_EXECUTABLE='#{%x(python-config --prefix).chomp}/bin/python'"
       args << "-DPYTHON_INCLUDE_DIR='#{%x(python-config --prefix).chomp}/include/python2.7'"
       args << "-DPYTHON_LIBRARY='#{%x(python-config --prefix).chomp}/lib/libpython2.7.dylib'"
-
       if build.with? "docs"
         args << "-DENABLE_SPHINX=ON"
       else
