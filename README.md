@@ -1,6 +1,6 @@
 homebrew-gnuradio
 =================
-Delicious and foamy tap of the latest ~~development~~ stable version of gnuradio! Yay! 
+Delicious and foamy tap of the latest ~~development~~ stable version of gnuradio (3.7.7.1)! Yay! It generally works with development builds too using `--HEAD`, but this is not garunteed or supported.
 
 This will *not* automatically handle gnuradio's python dependencies, in accordance with homebrew's python 
 policy. Typically, you can install the python dependencies required by gnuradio by running:
@@ -21,9 +21,6 @@ python packages are missing (if any) and tell you how to install them after you 
 Other available flags to be used at your discretion are `--without-qt` and `--without-docs`. 
 
 **Note:** Disabling QT will prevent the GUI companion from being built.
-
-The latest dev build can be attempted using the `--HEAD` argument, but this isn't necessarily guaranteed to 
-work.
 
 Python Woes and Other Issues
 -------------
